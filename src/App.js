@@ -1,11 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import Login, { LoginFunction } from './Login/Login';
 
-function App() {
+function App(props) {
   return (
     <>
-      <LoginFunction />
+      {props.mode === 'function' && <LoginFunction /> || <Login />}
     </>
   );
 }
