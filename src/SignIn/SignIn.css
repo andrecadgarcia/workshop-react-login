@@ -6,6 +6,7 @@
 }
 
 .container {
+    background-color: cyan; 
     height: 256px; 
     display: flex; 
     flex-direction: column;

@@ -1,10 +1,10 @@
 import './App.css';
-import Login, { LoginFunction } from './Login/Login';
+import Login from './Login/Login';
 
 function App(props) {
   return (
     <>
-      {props.mode === 'function' && <LoginFunction /> || <Login />}
+      <Login />
     </>
   );
 }
