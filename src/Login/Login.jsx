@@ -2,14 +2,17 @@ import React from 'react';
 import SigIn from '../SignIn/SignIn';
 import UpdatePassword from '../UpdatePassword/UpdatePassword';
 import './Login.css';
-import { login, logout } from './service';
+import { login } from './service';
 import { TextField, Button, Dialog, DialogTitle, Card } from '@mui/material';
+import { Navigate } from 'react-router-dom';
+import { fetchData } from '../database';
 
 export default class LoginClass extends React.Component {
 
     state = {
         usuario: '',
         senha: '',
+        loggedIn: false,
 
         dialog: {
             open: false,
@@ -21,7 +24,10 @@ export default class LoginClass extends React.Component {
     }
 
     componentDidMount() {
-
+        const items = fetchData('LOGIN');
+        if (items.length > 0) {
+            this.setState({ loggedIn: true });
+        }
     }
 
     setUsuario = (value) => {
@@ -36,19 +42,9 @@ export default class LoginClass extends React.Component {
         this.setState({ loading: true });
         login(this.state.usuario, this.state.senha).then(result => {
             alert(result);
+            this.setState({ loggedIn: true });
         }).catch(result => {
             alert(result);
-        }).finally(() => {
-            this.restoreLoginForm();
-        });
-    }
-
-    logoutHandler = () => {
-        this.setState({ loading: true });
-        logout().then(() => {
-            
-        }).catch(() => {
-            
         }).finally(() => {
             this.restoreLoginForm();
         });
@@ -102,16 +98,6 @@ export default class LoginClass extends React.Component {
         return (
             <div className='page'>
                 <Card className='container'>
-                    {/* {getLoggedUser() && (
-                        <>
-                            <p>Usuário: {getLoggedUser()}</p>
-                            <button
-                                onClick={this.logoutHandler}
-                            >
-                                <span>{this.state.loading ? 'Carregando...' : 'Sair'}</span>
-                            </button>
-                        </>
-                    )} */}
                     <TextField
                         variant='outlined'
                         label="Usuário"
@@ -158,6 +144,7 @@ export default class LoginClass extends React.Component {
                     <DialogTitle>{this.state.dialog.title}</DialogTitle>
                     {this.state.dialog.content}
                 </Dialog>
+                {this.state.loggedIn && <Navigate to="/home" replace={true} />}
             </div>
         );
     }

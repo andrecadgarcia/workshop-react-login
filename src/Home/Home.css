@@ -1,0 +1,36 @@
+.page-home {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+}
+
+.header {
+    width: 100%;
+    height: 32px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.header > .left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.header > .left > * {
+    margin-left: 8px !important;
+}
+
+.header > .right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.header > .right > * {
+    margin-right: 8px !important;
+}

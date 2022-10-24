@@ -1,10 +1,40 @@
 import './App.css';
-import Login from './Login/Login';
+import React from 'react';
+import { createHashRouter, RouterProvider, Navigate } from "react-router-dom";
 
-function App(props) {
+import Login from './Login/Login';
+import { fetchData } from './database';
+import Home from './Home/Home';
+
+function ProtectedRoute(props) {
+  const items = fetchData('LOGIN');
+  if (items.length === 0) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return props.children;
+};
+
+const router = createHashRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/home",
+    element: <ProtectedRoute><Home /></ProtectedRoute>,
+  }
+]);
+
+function App() {
+
   return (
     <>
-      <Login />
+      <RouterProvider router={router} />
     </>
   );
 }

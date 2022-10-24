@@ -1,4 +1,4 @@
-import { insertData, fetchData, deleteAll, getTimeout, encrypt } from "../database";
+import { insertData, fetchData, getTimeout, encrypt } from "../database";
 
 const DB_KEY = 'LOGIN';
 
@@ -15,13 +15,4 @@ export function login(usuario, senha) {
             }
         }, getTimeout());
     });
-}
-
-export function logout() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            deleteAll(DB_KEY);
-            resolve();
-        }, getTimeout());
-    });   
 }
